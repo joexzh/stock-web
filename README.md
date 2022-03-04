@@ -1,4 +1,4 @@
-# ths-web (should be stock-web)
+# ths-web
 
 ## 同花顺概念
 
