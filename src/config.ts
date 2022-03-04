@@ -1,0 +1,1 @@
+export const ApiPrefix = process.env.REACT_APP_STOCK_API_PREFIX
