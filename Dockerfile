@@ -1,7 +1,7 @@
 FROM node:17.6-alpine3.15 as builder
 WORKDIR /app
 COPY package*.json ./
-RUN npm install
+RUN npm config set registry https://registry.npm.taobao.org && npm install
 COPY . .
 RUN npm run build
 
