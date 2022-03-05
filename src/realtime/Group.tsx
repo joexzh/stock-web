@@ -1,9 +1,9 @@
 import Nav from "./Nav";
 import List from "./List";
-import {useCallback, useEffect, useState} from "react";
-import {Emitter, getJson} from "../util";
+import { useCallback, useEffect, useState } from "react";
+import { Emitter, getJson } from "../util";
 import * as config from "./config";
-import {DelEvent, SaveEvent} from "./Message";
+import { DelEvent, SaveEvent } from "./Message";
 
 interface Props {
     list: realtime.Message[]
@@ -11,7 +11,7 @@ interface Props {
 }
 
 const defaultTag = "DB"
-const defaultNavItem = {name: defaultTag}
+const defaultNavItem = { name: defaultTag }
 
 interface SavedMessage {
     id: string
@@ -20,7 +20,7 @@ interface SavedMessage {
 }
 
 function filterList(tag: string, list: realtime.Message[]) {
-    return list.filter(msg => msg.tagInfo.some(info => info.name === tag))
+    return list.filter(msg => msg.tagInfo?.some(info => info.name === tag))
 }
 
 async function getDbList() {
@@ -36,7 +36,7 @@ async function getDbList() {
 export default function Group(props: Props) {
     const [tag, setTag] = useState(defaultTag)
     const [list, setList] = useState([] as realtime.Message[])
-    const [tags, setTags] = useState([{name: defaultTag}] as realtime.Tag[])
+    const [tags, setTags] = useState([{ name: defaultTag }] as realtime.Tag[])
 
     const select = useCallback((tag: string) => {
         setTag(tag)
@@ -80,8 +80,8 @@ export default function Group(props: Props) {
 
     return (
         <>
-            <Nav tags={tags} selected={tag} select={select}/>
-            <List list={list}/>
+            <Nav tags={tags} selected={tag} select={select} />
+            <List list={list} />
         </>
     )
 }

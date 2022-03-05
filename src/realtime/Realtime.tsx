@@ -1,7 +1,7 @@
 import * as config from "./config";
 import notifyMe from "../notify";
-import {useEffect, useRef, useState} from "react";
-import {getJson} from "../util";
+import { useEffect, useRef, useState } from "react";
+import { getJson } from "../util";
 import produce from "immer";
 import Raw from "./Raw";
 import Group from "./Group";
@@ -37,14 +37,14 @@ function findKw(kws: realtime.kw[], name: string) {
 function arrangeKws(list: realtime.Message[]) {
     let kws = [] as realtime.kw[]
     list.forEach((msg) => {
-        msg.tagInfo.forEach((kw) => {
+        msg.tagInfo?.forEach((kw) => {
             if (config.excludedTagNames.includes(kw.name)) return
 
             let existKw = findKw(kws, kw.name)
             if (existKw) {
                 existKw.count += 1
             } else {
-                kws.push({name: kw.name, count: 1})
+                kws.push({ name: kw.name, count: 1 })
             }
         })
     })
@@ -138,10 +138,10 @@ export default function Realtime() {
     return (
         <div className="row g-3">
             <div className="col-6">
-                <Raw list={list} tags={filters}/>
+                <Raw list={list} tags={filters} />
             </div>
             <div className="col-6">
-                <Group list={list} tags={kws.slice(0, 10)}/>
+                <Group list={list} tags={kws.slice(0, 10)} />
             </div>
         </div>
     )

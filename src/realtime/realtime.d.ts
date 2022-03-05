@@ -25,18 +25,18 @@ declare namespace realtime {
         url: string,
         appUrl: string,
         shareUrl: string,
-        stock: Stock[]
-        field: Stock[],
+        stock?: Stock[]
+        field?: Stock[],
         color: string,
-        tag: string,
-        tags: Tag[],
+        tag?: string,
+        tags?: Tag[],
         ctime: string,
         rtime: string,
         source: string,
         short: string,
         nature: string,
         import: string,
-        tagInfo: TagInfo[]
+        tagInfo?: TagInfo[]
     }
 
     type Stock = {
