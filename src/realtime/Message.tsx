@@ -1,5 +1,5 @@
 import * as config from "./config";
-import {Emitter, fmtMMDDFromUnixSec, fmtTime, postJson} from "../util";
+import { Emitter, fmtMMDDFromUnixSec, fmtTime, postJson } from "../util";
 
 interface Props {
     msg: realtime.Message
@@ -8,17 +8,17 @@ interface Props {
 export const SaveEvent = "SaveEvent"
 export const DelEvent = "DelEvent"
 
-function concatNames(msg: any) {
-    let arr = msg.tags.concat(msg.stock, msg.field, msg.tagInfo)
-    arr = arr.map((f: any) => {
-        return f.name
-    })
-    return [...new Set(arr)] as string[]
+function concatNames(msg: realtime.Message) {
+    const names: string[] = []
+    msg?.tags?.forEach(tag => names.push(tag.name))
+    msg?.field?.forEach(f => names.push(f.name))
+    msg?.tagInfo?.forEach(info => names.push(info.name))
+    return [...new Set(names)]
 }
 
 function remove(msg: realtime.Message) {
     const url = config.saveUrl + `?objId=${msg.objId}`
-    fetch(url, {method: 'DELETE'}).then(resp => {
+    fetch(url, { method: 'DELETE' }).then(resp => {
         if (!resp.ok) throw new Error(`
             fail to delete ${url}
             err: ${resp.statusText}`)
@@ -44,10 +44,10 @@ function save(msg: realtime.Message) {
 export default function Message(props: Props) {
     let button = props.msg.objId ?
         <button type="button" className="btn rounded-pill btn-outline-primary btn-sm" title="delete" onClick={() => remove(props.msg)}>
-            <i className="bi bi-archive"/>
+            <i className="bi bi-archive" />
         </button> :
         <button type="button" className="btn rounded-pill btn-outline-primary btn-sm" title="save" onClick={() => save(props.msg)}>
-            <i className="bi bi-box-arrow-down"/>
+            <i className="bi bi-box-arrow-down" />
         </button>
 
     return (
@@ -59,7 +59,7 @@ export default function Message(props: Props) {
             </div>
             <div>
                 <a href={props.msg.url} target="_blank" rel="noreferrer" className="text-decoration-none text-reset">
-                    <p className={props.msg.import === '3'?'text-danger':''}>
+                    <p className={props.msg.import === '3' ? 'text-danger' : ''}>
                         <strong>{'【' + props.msg.title + '】'}</strong>
                         {props.msg.digest}
                     </p>
