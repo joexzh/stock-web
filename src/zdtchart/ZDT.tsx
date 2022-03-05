@@ -1,8 +1,8 @@
-import {useEffect, useRef} from "react";
-import createChart, {makeData} from "./build";
-import {getJson} from "../util";
-import {Url} from "./config";
-import {Chart} from "chart.js";
+import { useEffect, useRef } from "react";
+import createChart, { makeData } from "./build";
+import { getJson } from "../util";
+import { Url } from "./config";
+import { type Chart } from "chart.js";
 
 export default function ZDT() {
     const ref = useRef(null as HTMLCanvasElement | null)
@@ -11,7 +11,7 @@ export default function ZDT() {
         let chart = null as Chart | null
         getJson<chart.ZDTHistory[]>(Url).then(ret => {
             const list = makeData(ret)
-            chart = createChart({ctx: ref.current, list})
+            chart = createChart({ ctx: ref.current, list })
         })
         return () => {
             if (chart) {
