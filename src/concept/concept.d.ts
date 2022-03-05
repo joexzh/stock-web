@@ -1,7 +1,5 @@
 declare namespace concept {
     interface StockConceptDto {
-        index: number
-        id: string
         stockCode: string
         stockName: string
         conceptId: string
@@ -11,13 +9,13 @@ declare namespace concept {
     }
 
     interface Ret {
-        code: number,
-        message: string,
+        code: number
+        message: string
         result: StockConceptDto[]
     }
 
     interface FormVal {
-        concept?: string,
+        concept?: string
         stock?: string
     }
 }

@@ -1,5 +1,5 @@
 declare namespace chart {
-    export interface ZDTHistory {
+    interface ZDTHistory {
         date: string
         longLimitCount: number
         shortLimitCount: number
@@ -13,7 +13,7 @@ declare namespace chart {
         szShortCount: number
     }
 
-    export interface chartData {
+    interface chartData {
         date: string
         longLimitCount: number
         shortLimitCount: number
@@ -24,7 +24,7 @@ declare namespace chart {
         longShortRate: number
     }
 
-    export interface ChartMap {
+    interface ChartMap {
         [key: string]: {
             label: string
             color: string

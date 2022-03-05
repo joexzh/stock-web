@@ -70,7 +70,7 @@ export function makeData(list: chart.ZDTHistory[]): chart.chartData[] {
             longShortLimitRate: item.longLimitCount / item.shortLimitCount,
             longCount: item.shLongCount + item.szLongCount,
             shortCount: item.shShortCount + item.szShortCount,
-            longShortRate: 0
+            longShortRate: 0.0
         }
         chartData.longShortRate = chartData.longCount / chartData.shortCount
         dataList.push(chartData)
