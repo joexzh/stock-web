@@ -1,7 +1,7 @@
 import * as config from "./config";
 import notifyMe from "../notify";
-import { useEffect, useRef, useState } from "react";
-import { getJson } from "../util";
+import {useEffect, useRef, useState} from "react";
+import {getJson} from "../util";
 import produce from "immer";
 import Raw from "./Raw";
 import Group from "./Group";
@@ -44,7 +44,7 @@ function arrangeKws(list: realtime.Message[]) {
             if (existKw) {
                 existKw.count += 1
             } else {
-                kws.push({ name: kw.name, count: 1 })
+                kws.push({name: kw.name, count: 1})
             }
         })
     })
@@ -88,7 +88,7 @@ function useRealtime(): [realtime.Message[], realtime.Filter[], realtime.Tag[]] 
                 .then(ret => {
                     if (first) {
                         modGG(ret.filter)
-                        setFilters(ret.filter)
+                        setFilters([...ret.filter, {name: '加红', bury: 'import3', id: 'import3'}])
                     }
 
                     if (ret.list.length < 1) return
@@ -138,10 +138,10 @@ export default function Realtime() {
     return (
         <div className="row g-3">
             <div className="col-6">
-                <Raw list={list} tags={filters} />
+                <Raw list={list} tags={filters}/>
             </div>
             <div className="col-6">
-                <Group list={list} tags={kws.slice(0, 10)} />
+                <Group list={list} tags={kws.slice(0, 10)}/>
             </div>
         </div>
     )

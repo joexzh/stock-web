@@ -1,5 +1,5 @@
 import Nav from "./Nav";
-import { useCallback, useEffect, useState } from "react";
+import {useCallback, useEffect, useState} from "react";
 import List from "./List";
 
 interface Props {
@@ -7,10 +7,12 @@ interface Props {
     tags: realtime.Tag[]
 }
 
-const defaultTag = "全部"
+const defaultTag = '全部'
+const redTag = '加红'
 
 function getFilteredList(name: string, list: realtime.Message[]) {
     if (name === defaultTag) return list
+    if (name === redTag) return list.filter(msg => parseInt(msg?.import) >= 3)
     return list.filter(msg => msg.tags?.some(tag => tag.name === name))
 }
 
@@ -29,8 +31,8 @@ export default function Raw(props: Props) {
 
     return (
         <>
-            <Nav tags={props.tags} selected={tag} select={select} />
-            <List list={getFilteredList(tag, props.list)} />
+            <Nav tags={props.tags} selected={tag} select={select}/>
+            <List list={getFilteredList(tag, props.list)}/>
         </>
     )
 }
