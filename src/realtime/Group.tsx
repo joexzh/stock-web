@@ -1,9 +1,9 @@
 import Nav from "./Nav";
 import List from "./List";
-import { useCallback, useEffect, useState } from "react";
-import { Emitter, getJson } from "../util";
+import {useCallback, useEffect, useRef, useState} from "react";
+import {Emitter, getJson} from "../util";
 import * as config from "./config";
-import { DelEvent, SaveEvent } from "./Message";
+import {DelEvent, SaveEvent} from "./Message";
 
 interface Props {
     list: realtime.Message[]
@@ -11,7 +11,7 @@ interface Props {
 }
 
 const defaultTag = "DB"
-const defaultNavItem = { name: defaultTag }
+const defaultNavItem = {name: defaultTag}
 
 interface SavedMessage {
     id: string
@@ -33,10 +33,19 @@ async function getDbList() {
     })
 }
 
+function usePrevious<T>(value: T) {
+    const ref = useRef<T>()
+    useEffect(() => {
+        ref.current = value
+    })
+    return ref.current
+}
+
 export default function Group(props: Props) {
     const [tag, setTag] = useState(defaultTag)
+    const prevTag = usePrevious(tag)
     const [list, setList] = useState([] as realtime.Message[])
-    const [tags, setTags] = useState([{ name: defaultTag }] as realtime.Tag[])
+    const [tags, setTags] = useState([{name: defaultTag}] as realtime.Tag[])
 
     const select = useCallback((tag: string) => {
         setTag(tag)
@@ -49,12 +58,12 @@ export default function Group(props: Props) {
     }, [])
 
     useEffect(() => {
-        if (tag === defaultTag) {
+        if (tag === defaultTag && prevTag !== defaultTag) {
             refreshDbList()
-        } else {
+        } else if (tag !== defaultTag) {
             setList(filterList(tag, props.list))
         }
-    }, [tag, props.list, refreshDbList])
+    }, [tag, prevTag, props.list, refreshDbList])
 
     useEffect(() => {
         Emitter.on(SaveEvent, () => {
@@ -80,8 +89,8 @@ export default function Group(props: Props) {
 
     return (
         <>
-            <Nav tags={tags} selected={tag} select={select} />
-            <List list={list} />
+            <Nav tags={tags} selected={tag} select={select}/>
+            <List list={list}/>
         </>
     )
 }
