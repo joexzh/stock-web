@@ -17,7 +17,7 @@ function concatNames(msg: realtime.Message) {
 }
 
 function remove(msg: realtime.Message) {
-    const url = config.saveUrl + `?objId=${msg.objId}`
+    const url = config.saveUrl + "/" + msg.seq
     fetch(url, { method: 'DELETE' }).then(resp => {
         if (!resp.ok) throw new Error(`
             fail to delete ${url}
@@ -40,9 +40,8 @@ function save(msg: realtime.Message) {
     })
 }
 
-
 export default function Message(props: Props) {
-    let button = props.msg.objId ?
+    let button = props.msg.userId >= 0 ?
         <button type="button" className="btn rounded-pill btn-outline-primary btn-sm" title="delete" onClick={() => remove(props.msg)}>
             <i className="bi bi-archive" />
         </button> :

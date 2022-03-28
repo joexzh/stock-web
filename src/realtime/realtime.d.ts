@@ -17,8 +17,7 @@ declare namespace realtime {
 
     type Message = {
         id: string,
-        objId: string | null,
-        userId: string | null,
+        userId: number,
         seq: string,
         title: string,
         digest: string,

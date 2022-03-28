@@ -1,12 +1,14 @@
 declare namespace concept {
     interface StockConceptDto {
-        id: string
         stockCode: string
         stockName: string
+        description: string
+        updatedAt: string
         conceptId: string
         conceptName: string
-        description: string
-        lastModified: string
+        conceptPlateId: string
+        conceptDefine: string
+        conceptUpdatedAt: string
     }
 
     interface Ret {

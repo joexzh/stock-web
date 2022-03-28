@@ -9,8 +9,8 @@ export default function List(props: Props) {
         <ul className="list-group list-group-flush">
             {props.list.map(msg => {
                 return (
-                    <li className="list-group-item" key={msg.objId || msg.id}>
-                        <Message msg={msg}/>
+                    <li className="list-group-item" key={msg.seq}>
+                        <Message msg={msg} />
                     </li>
                 )
             })}
