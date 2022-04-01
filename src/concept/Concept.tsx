@@ -1,6 +1,6 @@
 import Search from "./Search";
-import React, {useCallback, useEffect, useState} from "react";
-import {getJson} from "../util";
+import React, { useCallback, useEffect, useState } from "react";
+import { getJson } from "../util";
 import * as config from "./config"
 import Table from "./ConceptTable";
 
@@ -21,8 +21,8 @@ export default function Concept() {
 
     return (
         <React.Fragment>
-            <Search callback={submit}/>
-            <Table list={list}/>
+            <Search callback={submit} />
+            <Table list={list} />
         </React.Fragment>
     )
 }
