@@ -1,5 +1,6 @@
-import React, {lazy} from "react"
-import {Link, useLocation} from "react-router-dom";
+import React, { lazy } from "react"
+import { Link, useLocation } from "react-router-dom";
+import "bootstrap/js/dist/offcanvas"
 
 const Concept = lazy(() => import("./concept/Concept"))
 const Realtime = lazy(() => import("./realtime/Realtime"))
@@ -29,15 +30,15 @@ export default function Menu() {
     return (
         <div className="navbar-light">
             <a href="#menu" role="button" className="small position-fixed top-0 end-0" data-bs-toggle="offcanvas"
-               aria-controls="menu">
-                <span className="navbar-toggler-icon"/>
+                aria-controls="menu">
+                <span className="navbar-toggler-icon" />
             </a>
             <div className="offcanvas offcanvas-end" tabIndex={-1} id="menu"
-                 aria-labelledby="offcanvasRightLabel">
+                aria-labelledby="offcanvasRightLabel">
                 <div className="offcanvas-header">
                     <h5 className="offcanvas-title" id="offcanvasRightLabel">Menu</h5>
                     <button type="button" className="btn-close text-reset" data-bs-dismiss="offcanvas"
-                            aria-label="Close"/>
+                        aria-label="Close" />
                 </div>
                 <div className="offcanvas-body">
                     <ul className="navbar-nav navbar-light flex-column">
