@@ -41,7 +41,7 @@ function save(msg: realtime.Message) {
 }
 
 export default function Message(props: Props) {
-    let button = props.msg.userId >= 0 ?
+    let button = props.msg.userId > 0 ?
         <button type="button" className="btn rounded-pill btn-outline-primary btn-sm" title="delete" onClick={() => remove(props.msg)}>
             <i className="bi bi-archive" />
         </button> :
