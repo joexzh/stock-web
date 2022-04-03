@@ -1,4 +1,4 @@
-import { useState } from "react"
+import {useEffect, useState} from "react"
 import { fmtDate } from "../util"
 
 interface Props {
@@ -24,6 +24,15 @@ function useTrPropSwitch(props: TrProps): [TrPartialProps, () => void] {
         time: props.sc.updatedAt,
         description: props.sc.description
     })
+
+    useEffect(() => {
+        setTrPartialProps({
+            bgColor: "",
+            bgColorMain: "",
+            time: props.sc.updatedAt,
+            description: props.sc.description
+        })
+    }, [props])
 
     function change() {
         if (trPartialProps.bgColor === "") {
