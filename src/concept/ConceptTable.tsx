@@ -14,22 +14,31 @@ interface TrPartialProps {
     bgColor: string
     bgColorMain: string
     time: string
+    code: string
+    link: string
     description: string
 }
+
+const conceptLinkPrefix = "http://q.10jqka.com.cn/gn/detail/code"
+const stockF10LinkPrefix = "http://basic.10jqka.com.cn"
 
 function useTrPropSwitch(props: TrProps): [TrPartialProps, () => void] {
     const [trPartialProps, setTrPartialProps] = useState<TrPartialProps>({
         bgColor: "",
-        bgColorMain: "",
+        bgColorMain: "bg-warning bg-opacity-10",
         time: props.sc.updatedAt,
+        code: props.sc.stockCode,
+        link: `${stockF10LinkPrefix}/${props.sc.stockCode}`,
         description: props.sc.description
     })
 
     useEffect(() => {
         setTrPartialProps({
             bgColor: "",
-            bgColorMain: "",
+            bgColorMain: "bg-warning bg-opacity-10",
             time: props.sc.updatedAt,
+            code: props.sc.stockCode,
+            link: `${stockF10LinkPrefix}/${props.sc.stockCode}`,
             description: props.sc.description
         })
     }, [props])
@@ -40,13 +49,17 @@ function useTrPropSwitch(props: TrProps): [TrPartialProps, () => void] {
                 bgColor: "bg-info",
                 bgColorMain: "bg-warning",
                 time: props.sc.conceptUpdatedAt,
+                code: props.sc.conceptId,
+                link: `${conceptLinkPrefix}/${props.sc.conceptId}`,
                 description: props.sc.conceptDefine
             })
         } else {
             setTrPartialProps({
                 bgColor: "",
-                bgColorMain: "",
+                bgColorMain: "bg-warning bg-opacity-10",
                 time: props.sc.updatedAt,
+                code: props.sc.stockCode,
+                link: `${stockF10LinkPrefix}/${props.sc.stockCode}`,
                 description: props.sc.description
             })
         }
@@ -65,13 +78,13 @@ function TableRow(props: TrProps) {
         <tr>
             <th scope="row">{props.row}</th>
             <td className={trPartialProps.bgColor}>{fmtDate(new Date(trPartialProps.time))}</td>
-            <td>
-                <a href={`http://basic.10jqka.com.cn/${props.sc.stockCode}/`} target="_blank" rel="noreferrer">
-                    {props.sc.stockCode}
+            <td className={trPartialProps.bgColor}>
+                <a href={trPartialProps.link} target="_blank" rel="noreferrer">
+                    {trPartialProps.code}
                 </a>
             </td>
             <td>{props.sc.stockName}</td>
-            <td className={trPartialProps.bgColorMain} onClick={changeDescription} style={{cursor: "pointer"}}>
+            <td className={trPartialProps.bgColorMain} onClick={changeDescription} style={{cursor: "pointer"}} title="点击切换stock/concept">
                 {props.sc.conceptName}
             </td>
             <td className={trPartialProps.bgColor}>{trPartialProps.description}</td>
