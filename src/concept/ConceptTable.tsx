@@ -1,8 +1,9 @@
 import {useEffect, useState} from "react"
-import { fmtDate } from "../util"
+import {fmtDate} from "../util"
 
 interface Props {
     list: concept.StockConceptDto[]
+    hidden: boolean
 }
 
 interface TrProps {
@@ -64,6 +65,7 @@ function useTrPropSwitch(props: TrProps): [TrPartialProps, () => void] {
             })
         }
     }
+
     return [trPartialProps, change]
 }
 
@@ -84,7 +86,8 @@ function TableRow(props: TrProps) {
                 </a>
             </td>
             <td>{props.sc.stockName}</td>
-            <td className={trPartialProps.bgColorMain} onClick={changeDescription} style={{cursor: "pointer"}} title="点击切换stock/concept">
+            <td className={trPartialProps.bgColorMain} onClick={changeDescription} style={{cursor: "pointer"}}
+                title="点击切换stock/concept">
                 {props.sc.conceptName}
             </td>
             <td className={trPartialProps.bgColor}>{trPartialProps.description}</td>
@@ -93,24 +96,26 @@ function TableRow(props: TrProps) {
 }
 
 export default function ConceptTable(props: Props) {
+    let display = props.hidden ? "d-none" : ""
+
     return (
-        <table className="table table-sm table-bordered">
+        <table className={`table table-sm table-bordered ${display}`}>
             <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Symbol</th>
-                    <th scope="col" style={{ minWidth: "82px" }}>Stock</th>
-                    <th scope="col">Concept</th>
-                    <th scope="col">Description</th>
-                </tr>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Date</th>
+                <th scope="col">Symbol</th>
+                <th scope="col" style={{minWidth: "82px"}}>Stock</th>
+                <th scope="col">Concept</th>
+                <th scope="col">Description</th>
+            </tr>
             </thead>
             <tbody>
-                {props.list.map((item, i) => {
-                    return (
-                        <TableRow key={i} row={i} sc={item} />
-                    )
-                })}
+            {props.list.map((item, i) => {
+                return (
+                    <TableRow key={i} row={i} sc={item}/>
+                )
+            })}
             </tbody>
         </table>
     )
