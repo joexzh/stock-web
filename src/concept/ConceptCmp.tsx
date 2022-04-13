@@ -79,7 +79,7 @@ export default function ConceptCmp(props: Props) {
     let display = props.hidden ? "d-none" : ""
 
     return (<div className={display}>
-        <div className="row">
+        <div className="row flex-row flex-nowrap">
             <CmpContext.Provider value={ctxVal}>
                 {list.map(one =>
                     <div className="col-auto" key={one.date}>
