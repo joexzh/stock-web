@@ -19,12 +19,10 @@ function ConceptCmpOne(props: OneProps) {
         {props.one.lines.map(line => {
             const bgColor = line.bgColor ? line.bgColor : "";
             return (
-                <li className={`list-group-item ${bgColor}`} key={line.plateId}
+                <li className={`list-group-item ${bgColor}`} key={line.plateId} title={`${line.plateId} ${line.close}`}
                     onMouseEnter={() => ctxVal.changeBgColor(line.plateId)}
                     onMouseLeave={() => ctxVal.clearBgColor(line.plateId)}>
-                    {line.plateId}&nbsp;
                     {line.conceptName}&nbsp;
-                    {line.close}&nbsp;
                     <span className={line.pctChg > 0 ? "text-danger" : "text-success"}>{line.pctChg2}</span>
                 </li>
             )
